@@ -87,7 +87,6 @@ footer {
     justify-content: center;
     align-items: center;
     background-color: #f2f2f2;
-
     font-family: Arial, sans-serif;
     color: #333;
   }
@@ -103,6 +102,11 @@ footer {
     text-decoration: underline;
   }
   
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 0%;
+    text-align: end;
+  }
   
-
   

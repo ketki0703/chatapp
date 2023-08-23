@@ -25,6 +25,9 @@ const SignInPage = () => {
     if (email.trim() === '') {
       setEmailError('Email is required');
       isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setEmailError('Please enter a valid email address');
+      isValid = false;
     } else {
       setEmailError('');
     }
@@ -32,18 +35,21 @@ const SignInPage = () => {
     if (password.trim() === '') {
       setPasswordError('Password is required');
       isValid = false;
+    } else if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+      setPasswordError('Password must be at least 8 characters and include letters and numbers');
+      isValid = false;
     } else {
       setPasswordError('');
     }
 
     if (isValid) {
-      // Perform the redirection logic here
+     
       if (action === 'Sign Up') {
-        // Redirect to sign up page
-        window.location.href = '/login'; // Change to your desired URL
+        
+        window.location.href = '/login'; 
       } else {
-        // Redirect to login page
-        window.location.href = '/'; // Change to your desired URL
+        
+        window.location.href = '/'; 
       }
     }
   };
@@ -63,10 +69,10 @@ const SignInPage = () => {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
-              setUsernameError('');
+            //   setUsernameError('');
             }}
           />
-          {usernameError && <div className='error'>{usernameError}</div>}
+          {usernameError && <div className='error red'>{usernameError}</div>}
         </div>
 
         <div className='input'>
@@ -79,7 +85,7 @@ const SignInPage = () => {
               setEmailError('');
             }}
           />
-          {emailError && <div className='error'>{emailError}</div>}
+          {emailError && <div className='error red'>{emailError}</div>}
         </div>
         
         <div className='input'>
@@ -92,7 +98,7 @@ const SignInPage = () => {
               setPasswordError('');
             }}
           />
-          {passwordError && <div className='error'>{passwordError}</div>}
+          {passwordError && <div className='error red'>{passwordError}</div>}
         </div>
       </div>
 
@@ -108,10 +114,10 @@ const SignInPage = () => {
           Sign Up
         </a>
       </div>
+      
       <footer>
-                <p>Already have account <a href="/login">Login</a>.</p>
-              
-            </footer>
+        <p>Already have an account? <a href="/login">Login</a>.</p>
+      </footer>
     </div>
   );
 };

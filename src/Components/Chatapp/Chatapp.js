@@ -43,11 +43,27 @@ const ChatUI = () => {
       handleSendMessage();
     }
   };
+  // const handleNewChat = () => {
+  //   const randomChatName = `Chat ${chatHistory.length + 1}`;
+  //   const newChat = { name: randomChatName, messages: messages };
+  //   setChatHistory([...chatHistory, newChat]);
+  //   setMessages([]);
+  //   setActiveChatIndex(chatHistory.length); // Set active chat to the newly created chat
+  // };
+
   const handleNewChat = () => {
     setMessages([]); // Clear current messages
     setActiveChatIndex(null); // Reset active chat index
-    const randomChatName = `Chat ${chatHistory.length + 1}`;
-    setChatHistory([...chatHistory, { name: randomChatName, messages: [] }]);
+  };
+
+  const handleSaveChat = () => {
+    if (messages.length > 0) {
+      const randomChatName = `Chat ${chatHistory.length + 1}`;
+      const newChat = { name: randomChatName, messages: messages };
+      setChatHistory([...chatHistory, newChat]);
+      setMessages([]);
+      setActiveChatIndex(null);
+    }
   };
 
   const handleChatHistoryClick = (index) => {
@@ -55,6 +71,16 @@ const ChatUI = () => {
     setMessages(chatHistory[index].messages);
   };
 
+  const handleDeleteChat = (index) => {
+    const updatedHistory = [...chatHistory];
+    updatedHistory.splice(index, 1); // Remove the selected chat entry
+    setChatHistory(updatedHistory);
+  
+    if (activeChatIndex === index) {
+      setMessages([]); // Clear messages if the currently displayed chat is deleted
+      setActiveChatIndex(null);
+    }
+  };
 
   const scrollToBottom = () => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -71,6 +97,9 @@ const ChatUI = () => {
         <button className="new-chat-button" onClick={handleNewChat}>
           New Chat
         </button>
+        <button className="save-button" onClick={handleSaveChat}>
+          Save
+        </button>
         <button className="clear-chat-button" onClick={() => setMessages([])}>
           Clear Chat
         </button>
@@ -85,6 +114,9 @@ const ChatUI = () => {
             onClick={() => handleChatHistoryClick(index)}
           >
             {entry.name}
+            <button className="delete-button" onClick={() => handleDeleteChat(index)}>
+        Delete
+      </button>
           </button>
            ))}
 </div>
