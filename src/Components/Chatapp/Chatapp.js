@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import './Chatapp.css';
 
 const ChatUI = () => {
@@ -6,7 +8,7 @@ const ChatUI = () => {
   const [messages, setMessages] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [inputText, setInputText] = useState('');
-  const [activeChatIndex, setActiveChatIndex] = useState(null); // To keep track of active chat
+  const [activeChatIndex, setActiveChatIndex] = useState(null); 
   const chatContainerRef = useRef(null);
 
   const handleInputChange = (event) => {
@@ -52,8 +54,8 @@ const ChatUI = () => {
   // };
 
   const handleNewChat = () => {
-    setMessages([]); // Clear current messages
-    setActiveChatIndex(null); // Reset active chat index
+    setMessages([]); 
+    setActiveChatIndex(null); 
   };
 
   const handleSaveChat = () => {
@@ -71,16 +73,19 @@ const ChatUI = () => {
     setMessages(chatHistory[index].messages);
   };
 
-  const handleDeleteChat = (index) => {
+  const handleDeleteChat = (index, event) => {
+    event.stopPropagation(); 
+  
     const updatedHistory = [...chatHistory];
-    updatedHistory.splice(index, 1); // Remove the selected chat entry
+    updatedHistory.splice(index, 1);
     setChatHistory(updatedHistory);
   
     if (activeChatIndex === index) {
-      setMessages([]); // Clear messages if the currently displayed chat is deleted
+      setMessages([]);
       setActiveChatIndex(null);
     }
   };
+  
 
   const scrollToBottom = () => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -114,7 +119,10 @@ const ChatUI = () => {
             onClick={() => handleChatHistoryClick(index)}
           >
             {entry.name}
-            <button className="delete-button" onClick={() => handleDeleteChat(index)}>
+            <button
+        className="delete-button"
+        onClick={(event) => handleDeleteChat(index, event)} 
+      >
         Delete
       </button>
           </button>
