@@ -3,9 +3,9 @@
     flex-direction: column;
     margin: auto;
     width: 600px;
-    margin-top: 80px;
+    margin-top: 70px;
     background: #fff;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 .header{
     display: flex;
@@ -82,3 +82,27 @@
     cursor: pointer;
 } 
 
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  footer a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+  
+  footer a:hover {
+    text-decoration: underline;
+  }
+  
+  
+
+  

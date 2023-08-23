@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Register.css';
 
-const Login = () => {
+const SignInPage = () => {
   const [action, setAction] = useState("Sign Up");
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
+  const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleLogin = () => {
+  const handleSignUp = () => {
     // Validate fields
     let isValid = true;
+
+    if (username.trim() === '') {
+      setUsernameError('Username is required');
+      isValid = false;
+    } else {
+      setUsernameError('');
+    }
 
     if (email.trim() === '') {
       setEmailError('Email is required');
@@ -29,12 +38,12 @@ const Login = () => {
 
     if (isValid) {
       // Perform the redirection logic here
-      if (action === 'Login') {
+      if (action === 'Sign Up') {
         // Redirect to sign up page
         window.location.href = '/login'; // Change to your desired URL
       } else {
         // Redirect to login page
-        window.location.href = '/chat'; // Change to your desired URL
+        window.location.href = '/'; // Change to your desired URL
       }
     }
   };
@@ -42,11 +51,24 @@ const Login = () => {
   return (
     <div className='container'>
       <div className='header'>
-        <div className='text'>Login</div>
+        <div className='text'>Sign Up</div>
         <div className='underline'></div>
       </div>
 
       <div className='inputs'>
+        <div className='input'>
+          <input
+            type='text'
+            placeholder='Name'
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setUsernameError('');
+            }}
+          />
+          {usernameError && <div className='error'>{usernameError}</div>}
+        </div>
+
         <div className='input'>
           <input
             type='email'
@@ -59,7 +81,7 @@ const Login = () => {
           />
           {emailError && <div className='error'>{emailError}</div>}
         </div>
-
+        
         <div className='input'>
           <input
             type='password'
@@ -74,25 +96,24 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Displaying the "Lost Password" link */}
-      <div className='forgot-password'>
-        Lost Password ?<span>Click here!</span>
-      </div>
-
       <div className='submit-container'>
         <a
-          href='/chat'
-          className={action === "Login" ? "submit gray" : "submit"}
+          href='/login'
+          className={action === "Sign Up" ? "submit gray" : "submit"}
           onClick={(e) => {
             e.preventDefault();
-            handleLogin();
+            handleSignUp();
           }}
         >
-          Login
+          Sign Up
         </a>
       </div>
+      <footer>
+                <p>Already have account <a href="/login">Login</a>.</p>
+              
+            </footer>
     </div>
   );
 };
 
-export default Login;
+export default SignInPage;
